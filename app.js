@@ -1,16 +1,12 @@
-const http = require("http");
-const fs = require("fs");
+const express = require("express");
+const path = require("path");
 
-const server = http.createServer((req, res) => {
-  fs.readFile("./public/index.html", (err, data) => {
-    res.writeHead(200, {
-      "Content-type": "text/html",
-    });
-    res.write(data);
-    res.end();
-  });
+const app = express();
+
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname, "./public") });
 });
 
-server.listen(3001, () => {
-  console.log("Server is running");
+app.listen(3001, () => {
+  console.log("server is running");
 });
